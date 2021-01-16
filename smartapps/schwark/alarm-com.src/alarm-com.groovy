@@ -109,7 +109,7 @@ private def toQueryString(Map m)
 	return m.collect { k, v -> "${k}=${URLEncoder.encode(v.toString())}" }.sort().join("&")
 }
 
-private def getRecipe(command, silent=true, nodelay=false, bypass=false, browserSession) {
+private def getRecipe(command, silent=true, nodelay=true, bypass=false, browserSession) {
 	def COMMAND = getCommand(command, silent, nodelay, bypass)
 	log.debug("getRecipe got command: silent is ${silent} and nodelay is ${nodelay} and bypass is ${bypass} and command is ${command} and COMMAND is ${COMMAND} and panelid is ${state.panelid}")
 	def apiMethod = 'post'
@@ -191,7 +191,7 @@ private def updateStatus(command, status, browserSession=null) {
 	}
 }
 
-def runCommand(command, silent, nodelay, bypass=false, browserSession=[:]) {
+def runCommand(command, silent=true, nodelay, bypass=false, browserSession=[:]) {
 	browserSession.vars = ['__VIEWSTATEGENERATOR':'','__EVENTVALIDATION':'','__VIEWSTATE':'']
 
 	log.debug("runCommand got command ${command} with silent ${silent} and nodelay of ${nodelay} and bypass of ${bypass}")
